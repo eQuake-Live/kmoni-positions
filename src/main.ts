@@ -124,7 +124,7 @@ exportAsJSON.addEventListener('click', () => {
 const SESSION_SAVE_KEY = 'EQUAKE_POSITIONS'
 sindo.onload = async () => {
   for (const [x, y] of JSON.parse(
-    sessionStorage.getItem(SESSION_SAVE_KEY) ?? await fetch('/get').then(res => res.text()),
+    /*sessionStorage.getItem(SESSION_SAVE_KEY) ?? */await fetch('/get').then(res => res.text()),
   )) {
     if (x < 20 && y < 20) {
       continue
