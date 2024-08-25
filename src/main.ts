@@ -40,7 +40,7 @@ const POINTER_SIZE = 3
 
 const addXY = (x: number, y: number) => {
   const elem = document.createElement('div')
-  elem.className = 'rounded-full bg-[#f003] absolute grid place-items-center'
+  elem.className = 'rounded-full bg-[#f003] absolute grid place-items-center touch-none'
   elem.style.padding = `${POINTER_SIZE}px`
 
   const detail = document.createElement('div')
@@ -60,6 +60,15 @@ const addXY = (x: number, y: number) => {
     }
     elem.dataset.lastClicked = now.toString()
   }
+
+  elem.onpointerdown = (evt) => {
+    elem.setPointerCapture(evt.pointerId)
+  }
+  elem.onpointermove = (evt) => {
+    elem.style.left = `${evt.pageX - 5}px`
+    elem.style.top = `${evt.pageY - 5}px`
+  }
+
   elem.dataset.x = x.toString()
   elem.dataset.y = y.toString()
 
@@ -67,7 +76,7 @@ const addXY = (x: number, y: number) => {
 }
 
 sindo.onclick = (evt) => {
-  const [x, y] = getClickedPos(evt)
+  const [x, y] = getClickedPos(sindo, evt.pageX, evt.pageY)
   addXY(x, y)
 }
 

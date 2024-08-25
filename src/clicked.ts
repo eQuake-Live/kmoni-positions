@@ -1,23 +1,14 @@
-export const getClickedPos = (evt: MouseEvent) => {
-  const target = evt.currentTarget as HTMLImageElement
-  const rect = target.getBoundingClientRect()
-  const x = evt.clientX - rect.left
-  const y = evt.clientY - rect.top
+export const getClickedPos = (image: HTMLImageElement, pageX: number, pageY: number) => {
+  const rect = image.getBoundingClientRect()
 
-  // 画像の元のサイズ
-  const originalWidth = target.naturalWidth
-  const originalHeight = target.naturalHeight
+  const originalWidth = image.naturalWidth
+  const originalHeight = image.naturalHeight
 
-  // 画像の表示サイズ
   const displayedWidth = rect.width
   const displayedHeight = rect.height
 
-  // 拡大縮小を考慮した座標の計算
-  const xRatio = originalWidth / displayedWidth
-  const yRatio = originalHeight / displayedHeight
-
-  const originalX = x * xRatio
-  const originalY = y * yRatio
+  const originalX = pageX / displayedWidth * originalWidth
+  const originalY = pageY / displayedHeight * originalHeight
 
   return [originalX, originalY]
 }
