@@ -1,0 +1,21 @@
+{
+  "name": "kmoni-editor",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "format": "biome format --fix && biome lint --fix",
+    "lint": "biome lint && biome format"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "@types/node": "^22.5.0",
+    "@unocss/preset-uno": "^0.62.3",
+    "typescript": "^5.5.3",
+    "unocss": "^0.62.3",
+    "vite": "^5.4.1"
+  }
+}
