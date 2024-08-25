@@ -80,6 +80,7 @@ const exportData = () => {
     result.push([x, y])
   }
   result.sort((a, b) => (a[0] * 1000 + a[1]) - (b[0] * 1000 + b[1]))
+  result.filter(([x, y]) => x < 10 && y < 10)
   return result
 }
 
@@ -89,9 +90,14 @@ exportAsJSON.addEventListener('click', () => {
   // JSON.stringify(data, null, 2) より美しい JSON
   const json = `[\n${data.map(([x, y]) => `  [${x}, ${y}]`).join(',\n')}\n]\n`
 
+  exportAsJSON.textContent = 'Saving...'
+  exportAsJSON.disabled = true
   fetch('/save', {
     method: 'POST',
     body: json,
+  }).then(() => {
+    exportAsJSON.textContent = 'Save JSON'
+    exportAsJSON.disabled = false
   })
 
   /*const blob = new Blob([json], {
