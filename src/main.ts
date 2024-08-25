@@ -44,7 +44,7 @@ const addXY = (x: number, y: number) => {
   elem.style.padding = `${POINTER_SIZE}px`
 
   const detail = document.createElement('div')
-  detail.className = 'rounded-full bg-red-500 p-px'
+  detail.className = 'rounded-full bg-red-500 p-[0.5px]'
   elem.appendChild(detail)
 
   const { pageX, pageY } = getImagePosFromPagePos(sindo, x, y)
