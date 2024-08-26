@@ -93,8 +93,7 @@ const exportData = () => {
     result.push([x, y])
   }
   result.sort((a, b) => (a[0] * 1000 + a[1]) - (b[0] * 1000 + b[1]))
-  result.filter(([x, y]) => x < 10 && y < 10)
-  return result
+  return result.filter(([x, y]) => x < 10 && y < 10)
 }
 
 exportAsJSON.addEventListener('click', () => {
