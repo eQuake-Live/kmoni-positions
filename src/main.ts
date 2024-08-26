@@ -79,7 +79,7 @@ const addXY = (x: number, y: number) => {
   positions.appendChild(elem)
 }
 
-sindo.onpointerdown = (evt) => {
+sindo.onclick = (evt) => {
   const [x, y] = getClickedPos(sindo, evt.pageX, evt.pageY)
   addXY(x, y)
 }
