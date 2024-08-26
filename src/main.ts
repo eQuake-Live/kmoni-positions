@@ -65,10 +65,12 @@ const addXY = (x: number, y: number) => {
     elem.setPointerCapture(evt.pointerId)
   }
   elem.onpointermove = (evt) => {
-    elem.style.left = `${evt.pageX - 5}px`
-    elem.style.top = `${evt.pageY - 5}px`
-
     const [x, y] = getClickedPos(sindo, evt.pageX, evt.pageY)
+    const {pageX, pageY} = getImagePosFromPagePos(sindo, x, y)
+
+    elem.style.left = `${pageX - 5}px`
+    elem.style.top = `${pageY - 5}px`
+
     elem.dataset.x = x.toString()
     elem.dataset.y = y.toString()
   }
