@@ -51,11 +51,11 @@ const addXY = (x: number, y: number) => {
   elem.style.left = `${pageX - POINTER_SIZE}px`
   elem.style.top = `${pageY - POINTER_SIZE}px`
 
-  elem.onclick = () => {
+  elem.onpointerup = () => {
     const lastClicked = Number.parseInt(elem.dataset.lastClicked ?? '0')
     const now = new Date().getTime()
 
-    if (now - lastClicked < 200) {
+    if (now - lastClicked < 500) {
       elem.remove()
     }
     elem.dataset.lastClicked = now.toString()
@@ -67,6 +67,10 @@ const addXY = (x: number, y: number) => {
   elem.onpointermove = (evt) => {
     elem.style.left = `${evt.pageX - 5}px`
     elem.style.top = `${evt.pageY - 5}px`
+
+    const [x, y] = getClickedPos(sindo, evt.pageX, evt.pageY)
+    elem.dataset.x = x.toString()
+    elem.dataset.y = y.toString()
   }
 
   elem.dataset.x = x.toString()
@@ -75,7 +79,7 @@ const addXY = (x: number, y: number) => {
   positions.appendChild(elem)
 }
 
-sindo.onclick = (evt) => {
+sindo.onpointerdown = (evt) => {
   const [x, y] = getClickedPos(sindo, evt.pageX, evt.pageY)
   addXY(x, y)
 }
