@@ -38,6 +38,20 @@ setInterval(() => {
 
 const POINTER_SIZE = 3
 
+const pointerEventHandlers = {
+  onpointerdown(evt: PointerEvent) {
+    const elem = evt.currentTarget as HTMLElement
+    elem.setPointerCapture(evt.pointerId)
+  },
+  onpointermove(evt: PointerEvent) {
+    const elem = evt.currentTarget as HTMLElement
+    const [x, y] = getClickedPos(sindo, evt.pageX, evt.pageY);const {pageX, pageY} = getImagePosFromPagePos(sindo, x, y);elem.style.left = `${pageX - 5}px`;elem.style.top = `${pageY - 5}px`;elem.dataset.x = x.toString();elem.dataset.y = y.toString()
+  },
+  onpointerup(evt: PointerEvent) {
+    const elem = evt.currentTarget as HTMLElement
+    const lastClicked = Number.parseInt(elem.dataset.lastClicked ?? '0');const now = new Date().getTime();if (now - lastClicked < 500) {;elem.remove();};elem.dataset.lastClicked = now.toString()
+  }
+}
 const addXY = (x: number, y: number) => {
   const elem = document.createElement('div')
   elem.className = 'rounded-full bg-[#f003] absolute grid place-items-center touch-none'
@@ -51,29 +65,9 @@ const addXY = (x: number, y: number) => {
   elem.style.left = `${pageX - POINTER_SIZE}px`
   elem.style.top = `${pageY - POINTER_SIZE}px`
 
-  elem.onpointerup = () => {
-    const lastClicked = Number.parseInt(elem.dataset.lastClicked ?? '0')
-    const now = new Date().getTime()
-
-    if (now - lastClicked < 500) {
-      elem.remove()
-    }
-    elem.dataset.lastClicked = now.toString()
-  }
-
-  elem.onpointerdown = (evt) => {
-    elem.setPointerCapture(evt.pointerId)
-  }
-  elem.onpointermove = (evt) => {
-    const [x, y] = getClickedPos(sindo, evt.pageX, evt.pageY)
-    const {pageX, pageY} = getImagePosFromPagePos(sindo, x, y)
-
-    elem.style.left = `${pageX - 5}px`
-    elem.style.top = `${pageY - 5}px`
-
-    elem.dataset.x = x.toString()
-    elem.dataset.y = y.toString()
-  }
+  elem.onpointerdown = pointerEventHandlers.onpointerdown
+  elem.onpointermove = pointerEventHandlers.onpointermove
+  elem.onpointerup = pointerEventHandlers.onpointerup
 
   elem.dataset.x = x.toString()
   elem.dataset.y = y.toString()
